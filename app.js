@@ -26,6 +26,10 @@ app.use(middleware.userIdentifier);
 app.use("/api/playlists", playlistsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
+// to use in e2e testing, run the app in test mode
+if (process.env.NODE_ENV === "TEST_ENV") {
+  app.use("/api/e2e", require("./controllers/testingReset"));
+}
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
 
